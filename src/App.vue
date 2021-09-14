@@ -2,6 +2,7 @@
   <div class="container-flow">
       <the-header></the-header>
   </div>
+  
 </template>
 
 
@@ -22,7 +23,7 @@ export default {
 <style>
 html{
   font-size:16px;
-  
+
 }
 
 </style>
