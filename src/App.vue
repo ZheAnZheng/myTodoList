@@ -1,13 +1,14 @@
 <template>
-  <div class="container">
-   
+  <div class="container-flow">
+      <the-header></the-header>
   </div>
 </template>
 
 
 <script>
+import TheHeader from "./components/TheHeader.vue"
 export default {
-  
+  components:{TheHeader},
   setup() {
 
     return {
@@ -16,3 +17,13 @@ export default {
   },
 }
 </script>
+
+
+<style>
+html{
+  font-size:16px;
+  
+}
+
+</style>
+
