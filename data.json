@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "todo": "First todolist",
+      "content": "Use vue.js and Boostrap to create my first todoList"
+    },
+    {
+      "todo": "test",
+      "content": "test postMan",
+      "id": 2
+    }
+  ]
+}
