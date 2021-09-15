@@ -7,14 +7,27 @@
            
         </div>
         <div class="col-sm offset-sm-3 col">
-            <h2 class="fw-bold">TODOLIST</h2>
+            <h2 class="fw-bolder">TODOLIST</h2>
         </div>
         
-        <div id="offcanvasTarget" class="offcanvas offcanvas-start bg-secondary bg-gradient"></div>
+        <div id="offcanvasTarget" class="offcanvas offcanvas-start bg-secondary bg-gradient">
+            <offcanvas-items></offcanvas-items>
+        </div>
     </div>
     
 </template>
 
+
+<script>
+import OffcanvasItems from "./OffcanvasItems.vue";
+
+export default{
+    components:{OffcanvasItems},
+    setup(){
+
+    }
+}
+</script>
 <style scoped>
     #menuIcon{
        
