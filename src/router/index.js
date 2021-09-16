@@ -1,12 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import todoPage from "../views/TodoPage.vue"
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    redirect:"/todo"
     
   },
+  {
+    path:"/todo",
+    component:todoPage
+  }
   
 ]
 

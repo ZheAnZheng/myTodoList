@@ -1,6 +1,7 @@
 <template>
-  <div class="container-flow">
+  <div class="container-flow ">
       <the-header></the-header>
+      <router-view />
   </div>
   
 </template>

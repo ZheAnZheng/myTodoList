@@ -1,5 +1,6 @@
 <template>
-    <div class="container align-items-center gy-5">
+<div id="offcanvasTarget" class="offcanvas offcanvas-start bg-secondary bg-gradient">
+    <div class="container  align-items-center gy-5 gx-5">
                 <div class="row ">
                     <h3 class="fs-1 fst-italic fw-bold ">狀態列表</h3>
                     <hr/>
@@ -21,5 +22,6 @@
                      </div>
 
                  </div>
+            </div>
             </div>
 </template>
