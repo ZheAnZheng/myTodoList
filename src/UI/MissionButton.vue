@@ -1,8 +1,8 @@
 
 // baseCard應用兩種樣式，都是給任務UI及新增任務UI
 <template>
-<!-- TODO 這格template有view跟邏輯耦合問題 -->
-  <div v-if="addMode" class="row my-2 justify-content-center">
+
+  <div v-if="addMode" class="row my-2 justify-content-center ">
     <div class="col-12 col-sm-8 col-md-6 d-grid mx-auto">
       <button
         class="
@@ -74,8 +74,9 @@
       </button>
     </div>
   </div>
-  <div v-else class="row my-2 justify-content-center">
-    <div class="col-12 col-sm-8 col-md-6 d-grid mx-auto align-self-center">
+  <div v-else class="row my-2 justify-content-center" @mouseenter="handleActive(true)"
+        @mouseleave="handleActive(false)">
+    <div class="col-12 col-sm-8 col-md-6 d-grid " >
       <button
         class="
           btn
@@ -88,19 +89,28 @@
         tabindex="-1"
         data-bs-toggle="modal"
         :data-bs-target="'#a' + todo.id"
+        
       >
         <p class="fw-bold fs-2 align-self-center my-auto">
           <!-- modal標題 -->
           {{todo.title}}
         </p>
+       
       </button>
+    </div>
+    <div v-if="active" class="col-md-1 d-grid g-0 ">
+      <button  class="btn btn-secondary   shadow-lg ">完成</button>
+    </div>
+    <div v-if="active" class="col-md-1 d-grid g-0 ">
+      <button class="btn btn-secondary   shadow-lg ">刪除</button>
     </div>
   </div>
   <modal-item v-if="addMode" addMode id="modalTarget"></modal-item>
-  <modal-item v-else :id="'a'+todo.id" :title="todo.title" :content="todo.content"></modal-item>
+  <modal-item v-else :id="'a'+todo.id" :title="todo.title" :content="todo.content" ></modal-item>
 </template>
 
 <script>
+import {ref} from "vue"
 import modalItem from "../components/modalItem.vue";
 export default {
   components: {
@@ -116,5 +126,16 @@ export default {
     id: String,
     todo:Object
   },
+  setup(){
+    const active=ref(false);
+    function handleActive(boolean){  
+      active.value=boolean;
+    }
+
+    return{
+      handleActive,
+      active
+    }
+  }
 };
 </script>

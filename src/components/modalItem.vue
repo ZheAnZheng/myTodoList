@@ -1,9 +1,26 @@
 <template>
 
 
-    <base-modal v-if="addMode" id="modalTarget" >
-        <template v-slot:title >Create a TODO</template>
-        <template v-slot:content>{{content}}</template>
+    <base-modal v-if="addMode" id="modalTarget"  @submit-todo="setTodoHandler" >
+        <template v-slot:title >Create a Todo</template>
+        <template v-slot:content>
+            <form class="needs-validation " novalidate >
+               <div class=" mb-2  was-validated" >
+                <label for="todoTitle" class="form-label">Todo Title</label>
+                <textarea   rows="1" placeholder="set your todo" id="todoTitle" class="form-control " v-model.trim="todoTitle.title"  required></textarea>
+                <div class="invalid-feedback">
+                Input your Goal
+                </div>
+            </div>
+            <div >
+                <label for="todoContent" class="form-label">Todo Content</label>
+                <textarea  rows="5" placeholder="Detail" id="todoContent" class="form-control"  v-model="todoContent"></textarea>
+                
+            </div> 
+            
+            </form>
+            
+        </template>
     </base-modal>
 
 
@@ -18,6 +35,8 @@
 <script>
 
 import baseModal from "../UI/BaseModal.vue"
+import {ref} from "vue"
+import {useRouter} from "vue-router"
 export default {
     components:{
         baseModal
@@ -33,9 +52,69 @@ export default {
         }
     },
     setup(){
+
+        const router = useRouter();
+        console.log(router)
+        const todoTitle=ref({
+            title:'',
+            validation:false
+        });
+        const todoContent=ref('');
         
-        return{
+       //缺認title validation
+       function checkTitleValidate(){
+           if(todoTitle.value.title === '' || todoTitle.value.title === false){
+               todoTitle.value.validation=false;
+           }else{
+               todoTitle.value.validation=true;
+           }
+       }
+       //上傳DB程序
+        async function setTodoHandler(){
             
+             const newTodo=ref({
+                title:todoTitle.value.title,
+                content:todoContent.value
+            })
+            
+            checkTitleValidate();
+
+           console.log(todoTitle.value.validation);
+            if(todoTitle.value.validation===false){
+                return ;
+            }else{
+                
+                const response= await fetch('http://localhost:3000/todos',{
+                    method:"POST",
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(newTodo.value)
+                    
+                })
+                
+                const responseData= await response.json();
+                
+                if(!response.ok){
+                    const error=new Error(responseData.message)
+                    throw error;
+                }else{
+                    router.go();
+                }
+                    
+                
+
+                
+                
+            }
+        }
+
+
+        return{
+            todoTitle,
+            todoContent,
+            
+            setTodoHandler
         }
     }
 }

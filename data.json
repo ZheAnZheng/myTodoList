@@ -6,14 +6,20 @@
       "content": "Use vue.js and Boostrap to create my first todoList"
     },
     {
-      "title": "test",
-      "content": "test postMan",
+      "title": "成功上傳json-server",
+      "content": "",
       "id": 2
     },
     {
-      "title": "6666666666",
-      "content": "Est magna esse deserunt in officia commodo minim esse. Magna est excepteur pariatur deserunt adipisicing id labore adipisicing nulla ullamco nulla. Aute sunt nostrud id tempor eiusmod ex proident esse excepteur. Commodo minim id esse aute esse ex cupidatat reprehenderit voluptate elit et. Pariatur aute dolor duis commodo irure.",
+      "title": "新增完成Todo功能",
+      "content": "",
       "id": 3
+    }
+  ],
+  "finishedTodos":[
+    {
+      "id":0,
+      "content":""
     }
   ]
 }
