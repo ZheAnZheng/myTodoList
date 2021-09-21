@@ -3,7 +3,7 @@
     <div class="container  ">
       
 
-        <mission-button v-for="finishedTodo in finishedTodos" :key="finishedTodo.id" :todo="finishedTodo"  done-mode></mission-button>
+        <mission-button v-for="finishedTodo in finishedTodos" :key="finishedTodo.id" :todo="finishedTodo" :id='finishedTodo.id'  done-mode></mission-button>
     </div>
     
 </template>

@@ -67,6 +67,37 @@ export default {
                     throw error;
                 }
                 context.dispatch('setTodos');
+    },
+    async deleteTodo(context,payload){
+      if(payload.type==='todo'){
+        await fetch(`http://localhost:3000/todos/${payload.id}`,{
+        method:"DELETE"
+        
+      })
+      context.dispatch('setTodos');
+      }else{
+        console.log(payload.id)
+        await fetch(`http://localhost:3000/finishedTodos/${payload.id}`,{
+        method:"DELETE"
+      })
+      context.dispatch('setFinishedTodos');
+      }
+      
+      
+    },
+    async finishedTodosReduction(context,payload){
+      await fetch('http://localhost:3000/todos',{
+        method:"post",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(payload)
+      })
+     
+      await fetch(`http://localhost:3000/finishedTodos/${payload.id}`,{
+        method:'DELETE'
+      })
+      context.dispatch('setFinishedTodos');
     }
     
   }

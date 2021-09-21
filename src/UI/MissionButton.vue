@@ -83,31 +83,33 @@
         btn btn-outline-secondary
         border-5
         rounded
+        pe-auto
         my-auto
         mx-auto
+        
       "
-      tabindex="-1"
-      data-bs-toggle="modal"
-      :data-bs-target="'#a' + todo.id"
+      
       @mouseenter="handleActive(true)"
       @mouseleave="handleActive(false)"
     >
-      <div class="d-flex me-auto py-3">
-        <p class="fw-bold fs-2 align-self-center my-auto">
+      <div class="d-flex  py-3 pe-5 me-auto" tabindex="-1"
+      data-bs-toggle="modal"
+      :data-bs-target="'#a'+ todo.id">
+        <p class="fw-bold fs-2 align-self-center my-auto pe-5 me-5">
           <!-- modal標題 -->
           {{ todo.title }}
         </p>
       </div>
       <transition name="todo-button">
-        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0">
-          <button class="btn btn-outline-light shadow-lg border-5 optionButton">
+        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0 ms-auto">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton" @click="reductionTodoHandler">
             回復
           </button>
         </div>
       </transition>
       <transition name="todo-button">
         <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0">
-          <button class="btn btn-outline-light shadow-lg border-5 optionButton">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton" @click="deleteTodoHandler">
             刪除
           </button>
         </div>
@@ -149,7 +151,7 @@
       </transition>
       <transition name="todo-button">
         <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0">
-          <button class="btn btn-outline-light shadow-lg border-5 optionButton">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton" @click="deleteTodoHandler">
             刪除
           </button>
         </div>
@@ -202,7 +204,7 @@ export default {
     const store = useStore();
     
 
-    async function finishedTodoHandler(){
+     function finishedTodoHandler(){
       const avtiveTodoData=ref({
       id:props.id,
       title:props.todo.title ,
@@ -213,8 +215,31 @@ export default {
       
      }
 
+    function deleteTodoHandler(){
+     
+      if(props.addMode=== false && props.doneMode===false){
+        store.dispatch('todo/deleteTodo',{
+        type:'todo',
+        id:props.id});
+    }else if(props.doneMode ===true && props.addMode=== false){
+       
+      store.dispatch('todo/deleteTodo',{
+        type:'finished',
+        id:props.id});
+    }
+      }
+      function reductionTodoHandler(){
+         const avtiveTodoData=ref({
+      id:props.id,
+      title:props.todo.title ,
+      content:props.todo.content
+    })
+      store.dispatch('todo/finishedTodosReduction',avtiveTodoData.value);
+      }
     return {
+      reductionTodoHandler,
       handleActive,
+      deleteTodoHandler,
       finishedTodoHandler,
       active,
     };
