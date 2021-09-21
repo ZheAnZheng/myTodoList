@@ -1,8 +1,8 @@
 
 // baseCard應用兩種樣式，都是給任務UI及新增任務UI
 <template>
-
-  <div v-if="addMode" class="row my-2 justify-content-center ">
+  <!-- 新增任務 -->
+  <div v-if="addMode" class="row my-2 justify-content-center" >
     <div class="col-12 col-sm-8 col-md-6 d-grid mx-auto">
       <button
         class="
@@ -74,68 +74,167 @@
       </button>
     </div>
   </div>
-  <div v-else class="row my-2 justify-content-center" @mouseenter="handleActive(true)"
-        @mouseleave="handleActive(false)">
-    <div class="col-12 col-sm-8 col-md-6 d-grid " >
-      <button
-        class="
-          btn
-          d-flex
-          justify-content-center
-          btn-outline-secondary
-          border-5
-          shadow-lg
-        "
-        tabindex="-1"
-        data-bs-toggle="modal"
-        :data-bs-target="'#a' + todo.id"
-        
-      >
+  <!-- 完成的TODO -->
+  <div v-else-if="doneMode" class="row my-2 justify-content-center">
+    <div
+      class="
+        col-12 col-sm-8 col-md-6
+        d-flex
+        btn btn-outline-secondary
+        border-5
+        rounded
+        my-auto
+        mx-auto
+      "
+      tabindex="-1"
+      data-bs-toggle="modal"
+      :data-bs-target="'#a' + todo.id"
+      @mouseenter="handleActive(true)"
+      @mouseleave="handleActive(false)"
+    >
+      <div class="d-flex me-auto py-3">
         <p class="fw-bold fs-2 align-self-center my-auto">
           <!-- modal標題 -->
-          {{todo.title}}
+          {{ todo.title }}
         </p>
-       
-      </button>
-    </div>
-    <div v-if="active" class="col-md-1 d-grid g-0 ">
-      <button  class="btn btn-secondary   shadow-lg ">完成</button>
-    </div>
-    <div v-if="active" class="col-md-1 d-grid g-0 ">
-      <button class="btn btn-secondary   shadow-lg ">刪除</button>
+      </div>
+      <transition name="todo-button">
+        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton">
+            回復
+          </button>
+        </div>
+      </transition>
+      <transition name="todo-button">
+        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton">
+            刪除
+          </button>
+        </div>
+      </transition>
     </div>
   </div>
+  <!-- 任務 -->
+  <div v-else class="row my-2 justify-content-center">
+    <div
+      class="
+        col-12 col-sm-8 col-md-6
+        d-flex
+        btn btn-outline-secondary
+        border-5
+        rounded
+        pe-auto
+        my-auto
+        mx-auto
+        
+      "
+      
+      @mouseenter="handleActive(true)"
+      @mouseleave="handleActive(false)"
+    >
+      <div class="d-flex  py-3 pe-5 me-auto" tabindex="-1"
+      data-bs-toggle="modal"
+      :data-bs-target="'#a'+ todo.id">
+        <p class="fw-bold fs-2 align-self-center my-auto pe-5 me-5">
+          <!-- modal標題 -->
+          {{ todo.title }}
+        </p>
+      </div>
+      <transition name="todo-button">
+        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0 ms-auto">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton" @click="finishedTodoHandler">
+            完成
+          </button>
+        </div>
+      </transition>
+      <transition name="todo-button">
+        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0">
+          <button class="btn btn-outline-light shadow-lg border-5 optionButton">
+            刪除
+          </button>
+        </div>
+      </transition>
+    </div>
+  </div>
+
   <modal-item v-if="addMode" addMode id="modalTarget"></modal-item>
-  <modal-item v-else :id="'a'+todo.id" :title="todo.title" :content="todo.content" ></modal-item>
+  <modal-item
+    v-else
+    :id="'a'+todo.id"
+    :title="todo.title"
+    :content="todo.content"
+  ></modal-item>
 </template>
 
 <script>
-import {ref} from "vue"
+import { ref } from "vue";
+import {useStore} from "vuex"
 import modalItem from "../components/modalItem.vue";
+
 export default {
+  emits:['refresh-page'],
   components: {
     modalItem,
   },
-  
+
   props: {
     addMode: {
       type: Boolean,
       required: false,
       default: false,
     },
+    doneMode: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    
     id: String,
-    todo:Object
+    todo: Object,
   },
-  setup(){
-    const active=ref(false);
-    function handleActive(boolean){  
-      active.value=boolean;
+  setup(props) {
+    const active = ref(false);
+
+    function handleActive(boolean) {
+      active.value = boolean;
     }
 
-    return{
+    const store = useStore();
+    
+
+    async function finishedTodoHandler(){
+      const avtiveTodoData=ref({
+      id:props.id,
+      title:props.todo.title ,
+      content:props.todo.content
+    })
+      store.dispatch('todo/completeTodo',avtiveTodoData.value);
+     
+      
+     }
+
+    return {
       handleActive,
-      active
-    }
-  }
+      finishedTodoHandler,
+      active,
+    };
+  },
 };
 </script>
+
+<style scoped>
+.todo-button-enter-from,
+.todo-button-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.todo-button-enter-active,
+.todo-button-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+.todo-button-enter-to,
+.todo-button-leave-from {
+  opacity: 1;
+  transform: translateX(0px);
+}
+</style>

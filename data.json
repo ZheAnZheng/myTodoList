@@ -1,25 +1,56 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "First todolist",
-      "content": "Use vue.js and Boostrap to create my first todoList"
+      "id": "5046-4504-4253",
+      "title": "dsd",
+      "content": "ds"
     },
     {
-      "title": "成功上傳json-server",
-      "content": "",
-      "id": 2
-    },
-    {
-      "title": "新增完成Todo功能",
-      "content": "",
-      "id": 3
+      "id": "6621-3548-2855",
+      "title": "jkjhk",
+      "content": "jhkhjk"
     }
   ],
-  "finishedTodos":[
+  "finishedTodos": [
     {
-      "id":0,
-      "content":""
+      "id": "2320-4738-9929",
+      "title": "亂數id",
+      "content": "用math.random產生"
+    },
+    {
+      "id": "7602-4237-3019",
+      "title": "assasd",
+      "content": "gfdg"
+    },
+    {
+      "id": "1482-6394-8041",
+      "title": "jhgjgj",
+      "content": "hjgjgj"
+    },
+    {
+      "id": "1279-3991-7919",
+      "title": "新增vuex",
+      "content": ""
+    },
+    {
+      "id": "9383-1212-727",
+      "title": "sdad",
+      "content": "asda"
+    },
+    {
+      "id": "9722-6446-8135",
+      "title": "fd",
+      "content": ""
+    },
+    {
+      "id": "3964-9713-8340",
+      "title": "hgj",
+      "content": "hgj"
+    },
+    {
+      "id": "3202-983-9812",
+      "title": "dfds",
+      "content": "fds"
     }
   ]
 }

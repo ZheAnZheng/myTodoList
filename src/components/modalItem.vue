@@ -35,8 +35,9 @@
 <script>
 
 import baseModal from "../UI/BaseModal.vue"
-import {ref} from "vue"
-import {useRouter} from "vue-router"
+import {ref,computed,provide} from "vue"
+import {useStore} from "vuex"
+
 export default {
     components:{
         baseModal
@@ -53,13 +54,21 @@ export default {
     },
     setup(){
 
-        const router = useRouter();
-        console.log(router)
+        const store = useStore();
+        
         const todoTitle=ref({
             title:'',
             validation:false
         });
         const todoContent=ref('');
+
+        const validate=computed(function(){
+            checkTitleValidate();
+            
+            return todoTitle.value.validation
+        })
+        
+        provide('validation',validate);
         
        //缺認title validation
        function checkTitleValidate(){
@@ -69,10 +78,21 @@ export default {
                todoTitle.value.validation=true;
            }
        }
+
+       function IdCreater(){
+        //    let num =Math.floor(Math.random()*10000);
+           let uId=Math.floor(Math.random()*10000)+'-'+Math.floor(Math.random()*10000)+'-'+Math.floor(Math.random()*10000);
+           return{
+               id:uId
+           }
+       }
+       
        //上傳DB程序
+       //TODO
         async function setTodoHandler(){
             
              const newTodo=ref({
+                 id:IdCreater().id,
                 title:todoTitle.value.title,
                 content:todoContent.value
             })
@@ -83,29 +103,9 @@ export default {
             if(todoTitle.value.validation===false){
                 return ;
             }else{
-                
-                const response= await fetch('http://localhost:3000/todos',{
-                    method:"POST",
-                    headers:{
-                        'Content-Type':'application/json'
-                    },
-                    body:JSON.stringify(newTodo.value)
-                    
-                })
-                
-                const responseData= await response.json();
-                
-                if(!response.ok){
-                    const error=new Error(responseData.message)
-                    throw error;
-                }else{
-                    router.go();
-                }
-                    
-                
-
-                
-                
+                store.dispatch('todo/newTodo',newTodo.value);
+                todoTitle.value.title='';
+                todoContent.value='';
             }
         }
 
@@ -113,7 +113,7 @@ export default {
         return{
             todoTitle,
             todoContent,
-            
+            validate,
             setTodoHandler
         }
     }
