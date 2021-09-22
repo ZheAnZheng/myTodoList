@@ -134,16 +134,26 @@
       @mouseenter="handleActive(true)"
       @mouseleave="handleActive(false)"
     >
-      <div class="d-flex  py-3 pe-5 me-auto" tabindex="-1"
+      <div class="d-flex  py-3 pe-5 me-auto  overflow-hidden" tabindex="-1"
       data-bs-toggle="modal"
       :data-bs-target="'#a'+ todo.id">
-        <p class="fw-bold fs-2 align-self-center my-auto pe-5 me-5">
+        <p class="fw-bold fs-2 align-self-center my-auto pe-5 me-5  ">
           <!-- modal標題 -->
           {{ todo.title }}
         </p>
       </div>
       <transition name="todo-button">
         <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0 ms-auto">
+          <button v-if="!todo.top" class="btn btn-outline-light shadow-lg border-5 optionButton" @click="setTopTodos">
+            優先
+          </button>
+          <button v-else class="btn btn-outline-light shadow-lg border-5 optionButton" @click="setTopTodos">
+            取消
+          </button>
+        </div>
+      </transition>
+      <transition name="todo-button">
+        <div v-if="active" class="col-11 col-sm-7 col-md-1 d-flex g-0 ">
           <button class="btn btn-outline-light shadow-lg border-5 optionButton" @click="finishedTodoHandler">
             完成
           </button>
@@ -208,7 +218,8 @@ export default {
       const avtiveTodoData=ref({
       id:props.id,
       title:props.todo.title ,
-      content:props.todo.content
+      content:props.todo.content,
+      top:false
     })
       store.dispatch('todo/completeTodo',avtiveTodoData.value);
      
@@ -236,7 +247,26 @@ export default {
     })
       store.dispatch('todo/finishedTodosReduction',avtiveTodoData.value);
       }
+    function setTopTodos(){
+
+      if(props.todo.top===true){
+        store.dispatch('todo/setTopProperty',{
+          id:props.id,
+      title:props.todo.title ,
+      content:props.todo.content,
+          top:false
+        })
+      }else{
+         store.dispatch('todo/setTopProperty',{
+          id:props.id,
+      title:props.todo.title ,
+      content:props.todo.content,
+          top:true
+        })
+      }
+    }
     return {
+      setTopTodos,
       reductionTodoHandler,
       handleActive,
       deleteTodoHandler,

@@ -2,7 +2,7 @@ export default {
   namespaced:true,
     state: {
       todos:[],
-      finishedTodos:[]
+      finishedTodos:[],
     },
     getters:{
       getTodos(state){
@@ -10,7 +10,11 @@ export default {
       },
       getFinishedTodos(state){
         return state.finishedTodos;
+      },
+      getTopTodos(state){
+        return state.todos.filter(todo=>todo.top===true);
       }
+
     },
     mutations: {  
       setTodos(state,payload){
@@ -76,7 +80,7 @@ export default {
       })
       context.dispatch('setTodos');
       }else{
-        console.log(payload.id)
+        
         await fetch(`http://localhost:3000/finishedTodos/${payload.id}`,{
         method:"DELETE"
       })
@@ -98,7 +102,21 @@ export default {
         method:'DELETE'
       })
       context.dispatch('setFinishedTodos');
+    },
+    async setTopProperty(context,payload){
+     
+      await fetch(`http://localhost:3000/todos/${payload.id}`,{
+        method:"PUT",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(payload)
+      }
+      
+      )
+      
+      
+      context.dispatch('setTodos');
     }
-    
   }
 }

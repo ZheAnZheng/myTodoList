@@ -67,7 +67,7 @@ export default {
             
             return todoTitle.value.validation
         })
-        
+
         provide('validation',validate);
         
        //缺認title validation
@@ -88,18 +88,19 @@ export default {
        }
        
        //上傳DB程序
-       //TODO
+    
         async function setTodoHandler(){
             
              const newTodo=ref({
                  id:IdCreater().id,
                 title:todoTitle.value.title,
-                content:todoContent.value
+                content:todoContent.value,
+                top:false
             })
             
             checkTitleValidate();
 
-           console.log(todoTitle.value.validation);
+         
             if(todoTitle.value.validation===false){
                 return ;
             }else{

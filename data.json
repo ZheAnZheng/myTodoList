@@ -1,15 +1,30 @@
 {
-  "todos": [],
-  "finishedTodos": [
+  "todos": [
     {
       "id": "1279-3991-7919",
       "title": "新增vuex",
-      "content": ""
+      "content": "",
+      "top": true
     },
     {
       "id": "2320-4738-9929",
       "title": "亂數id",
-      "content": "用math.random產生"
+      "content": "用math.random產生",
+      "top": false
+    },
+    {
+      "id": "2272-4008-3969",
+      "title": "asdasda",
+      "content": "asdasddas",
+      "top": true
+    }
+  ],
+  "finishedTodos": [
+    {
+      "id": "5093-3072-6771",
+      "title": "新增至頂幻燈片功能",
+      "content": "新增todo 屬性top:Boolean\n新增 topTodo array in vuex store\n將caresoul 裡的每個topTodo 用vue temaplate建立 重複使用",
+      "top": false
     }
   ]
 }
