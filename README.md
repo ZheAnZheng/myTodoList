@@ -1,11 +1,10 @@
 # myTodoList
 
-## 主要學習的是使用VUE 與 Boostrap以及json server的搭配開發。
+## 主要學習的是使用VUE 與 Boostrap以及json server以及Git的搭配開發。
 
 ```
-進行這一個todolist開發的原因是，剛學習Vue的使用方式
-，以及之前有學習boostrap的經驗，想要同時使用這兩種工具
-來實際操作看看。
+進行這一個todolist開發的原因是，剛學習Vue的使用方式，以及之前有學習boostrap的經驗，
+剛好也可以利用json server當資料庫 ，git做版本控制，來實際操作看看。
 ```
 ![主畫面](https://user-images.githubusercontent.com/90257304/137928485-63637388-3363-4e92-a7d3-a539a1ccdbcf.png)
 
@@ -39,6 +38,8 @@
 # 完成任務列表
 ![完成任務頁](https://user-images.githubusercontent.com/90257304/137936065-99d9fd08-f7b2-4d7f-9002-a616c28b0d86.png)
 
+# RWD效果
+![RWD](https://user-images.githubusercontent.com/90257304/137937354-4eaa67ec-91b0-4081-a124-16414d9ee7d1.png)
 
 
 
