@@ -17,9 +17,20 @@
 > 5. 顯示至頂任務
 > 5. 查看完成的任務
 > 6. 復原完成任務
+> 
+## VUE
+-利用component建立各個元件，可以清楚的分開HTML以及JS的邏輯，也可以複用component減少重複的設定。
+-利用VUEX建立一個暫時資料庫，透過VUEX集中串接JSON Server API的邏輯。
+-利用Vue router 建立SPA。
+
+## Boostrap
+整個專案都是利用Boostrap原生設定來進行開發，用Boostrap的component，做出了Carousel , Modal , Offcanvas，大大減少CSS的開發時間。
 
 ## JSON Server:
 創建json並分成兩個資料庫 完成的任務 以及 未完成的任務，再用json-server就能夠建立能夠即時互動資料庫。
+
+## Git
+在每一個功能開發完，就換上傳一次更新，從souceTree可以清楚的知道，做了什麼更動或是新增的需求。
 
 # 切換完成與未完成的todo :
 利用Vue-router做出不同router的SPA網頁
